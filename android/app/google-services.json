@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "282824737626",
+    "project_id": "dymtestapp",
+    "storage_bucket": "dymtestapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282824737626:android:731d01b043efafceb46963",
+        "android_client_info": {
+          "package_name": "com.dympractice.testapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsMOLOz50G99oshVcTBRGxSulM3LkQgSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
