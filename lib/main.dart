@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:testapp/firebase_options.dart';
+import 'package:testapp/views/dym_login_view.dart';
+import 'package:testapp/views/dym_register_view.dart';
+import 'package:testapp/views/dym_verify_email_view.dart';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +15,10 @@ void main(){
         useMaterial3: true,
       ),
       home: const DymHomePage(),
+      routes: {
+        '/login' : (context) => const DymLoginView(),
+        '/register' : (context) => const DymRegisterView(),
+      },
     ),
   );
 }
@@ -21,14 +28,7 @@ class DymHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-        centerTitle: true,
-        backgroundColor: Colors.lightGreen,
-        foregroundColor: Colors.white,
-      ),
-      body: FutureBuilder(
+    return FutureBuilder(
         future: Firebase.initializeApp(
             options: DefaultFirebaseOptions.currentPlatform,
             ),
@@ -36,18 +36,20 @@ class DymHomePage extends StatelessWidget {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
             final user = FirebaseAuth.instance.currentUser;
-            if(user?.emailVerified ?? false)
-            {
-              print('You are a verified user');
+            if (user != null){
+              if(user.emailVerified){
+                print('Email is verified');
+              } else {
+                return const DymVerifyEmailView();
+              }
             } else {
-              print('You need to verify your email first');
+              return const DymLoginView();
             }
-              return const Text('Done');
+            return const Text('Done');
           default: 
-            return const Text('Loading...');
+            return const CircularProgressIndicator();
           }
         },
-      ),
-    ); 
+      );
   }
 }
